@@ -2,7 +2,22 @@
 
 In modern React frameworks like Next.js, both **React Server Components (RSC)** and **Server-Side Rendering (SSR)** involve server-side execution. However, they solve different problems and work differently.
 
----
+In the App Router, components are Server Components by default. To achieve SSR (fetching fresh data on every request), you disable caching in your fetch request.
+
+```javascript
+export default async function ServerPage() {
+  // { cache: 'no-store' } forces the server to fetch on every request
+  const res = await fetch('https://api.example.com/data', { cache: 'no-store' });
+  const data = await res.json();
+
+  return (
+    <main>
+      <h1>Server-Side Rendered</h1>
+      <p>{data.message}</p>
+    </main>
+  );
+}
+```
 
 # 1. What is Server-Side Rendering (SSR)
 
